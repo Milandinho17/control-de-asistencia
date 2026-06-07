@@ -4,7 +4,7 @@ import sqlite3
 from datetime import datetime
 import random
 import os
-from tkcalendar import DateEntry
+#from tkcalendar import DateEntry
 # Recuerda tener instalado Pillow: pip install Pillow
 import streamlit as st
 
