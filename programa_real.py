@@ -6,15 +6,6 @@ import random
 import os
 from tkcalendar import DateEntry
 # Recuerda tener instalado Pillow: pip install Pillow
-import streamlit as st
-
-st.title("¡Mi Primera Aplicación Web con Python!")
-st.write("Esta aplicación se creó en VS Code y ahora está en internet.")
-
-# Aquí va la lógica de tu programa
-nombre = st.text_input("¿Cómo te llamas?")
-if nombre:
-    st.write(f"¡Hola, {nombre}! Bienvenido a mi programa.")
 from PIL import Image, ImageTk
 
 # Importaciones para gráficos de Matplotlib integrados con Tkinter
@@ -152,19 +143,19 @@ class AsistenciaApp:
         f_main.pack(expand=True)
         
         # 1. Identidad de la Institución
-        st.subheader("Fe y Alegría Prisco Villasmil", font=("Helvetica", 24, "bold"), fg=TEXT_BLANCO, bg=BG_GRIS).pack(pady=(10, 20))
+        tk.Label(f_main, text="Fe y Alegría Prisco Villasmil", font=("Helvetica", 24, "bold"), fg=TEXT_BLANCO, bg=BG_GRIS).pack(pady=(10, 20))
         
         # 2. El Logo actúa como Título Visual
         img_logo = self.obtener_logo_procesado(340, 340)
         if img_logo:
             self.logo_bienvenida = ImageTk.PhotoImage(img_logo)
-            lbl_logo = st.Label(f_main, image=self.logo_bienvenida, bg=BG_GRIS)
+            lbl_logo = tk.Label(f_main, image=self.logo_bienvenida, bg=BG_GRIS)
             lbl_logo.pack(pady=(0, 25))
         else:
-            st.Label(f_main, text="[ LOGOTIPO INSTITUCIONAL ]", fg=NEON_MORADO, bg=BG_GRIS, font=("Helvetica", 16, "bold")).pack(pady=(0, 25))
+            tk.Label(f_main, text="[ LOGOTIPO INSTITUCIONAL ]", fg=NEON_MORADO, bg=BG_GRIS, font=("Helvetica", 16, "bold")).pack(pady=(0, 25))
         
         # Contenedor dinámico inferior para alternar botón / credenciales
-        f_interactivo = st.Frame(f_main, bg=BG_GRIS)
+        f_interactivo = tk.Frame(f_main, bg=BG_GRIS)
         f_interactivo.pack(fill="x", pady=10)
         
         def desplegar_formulario_login():
@@ -172,24 +163,24 @@ class AsistenciaApp:
             for widget in f_interactivo.winfo_children():
                 widget.destroy()
                 
-            st.Label(f_interactivo, text="Usuario:", fg=TEXT_BLANCO, bg=BG_GRIS, font=("Helvetica", 11, "bold")).pack(anchor="center", pady=(0, 4))
-            self.txt_user = st.Entry(f_interactivo, bg=INPUT_BLANCO, fg=TEXT_NEGRO, insertbackground=TEXT_NEGRO, relief="flat", width=30, font=("Helvetica", 12), justify="center")
+            tk.Label(f_interactivo, text="Usuario:", fg=TEXT_BLANCO, bg=BG_GRIS, font=("Helvetica", 11, "bold")).pack(anchor="center", pady=(0, 4))
+            self.txt_user = tk.Entry(f_interactivo, bg=INPUT_BLANCO, fg=TEXT_NEGRO, insertbackground=TEXT_NEGRO, relief="flat", width=30, font=("Helvetica", 12), justify="center")
             self.txt_user.pack(pady=(0, 12))
             self.txt_user.focus_set()
             
-            st.Label(f_interactivo, text="Contraseña:", fg=TEXT_BLANCO, bg=BG_GRIS, font=("Helvetica", 11, "bold")).pack(anchor="center", pady=(0, 4))
-            self.txt_pass = st.Entry(f_interactivo, show="*", bg=INPUT_BLANCO, fg=TEXT_NEGRO, insertbackground=TEXT_NEGRO, relief="flat", width=30, font=("Helvetica", 12), justify="center")
+            tk.Label(f_interactivo, text="Contraseña:", fg=TEXT_BLANCO, bg=BG_GRIS, font=("Helvetica", 11, "bold")).pack(anchor="center", pady=(0, 4))
+            self.txt_pass = tk.Entry(f_interactivo, show="*", bg=INPUT_BLANCO, fg=TEXT_NEGRO, insertbackground=TEXT_NEGRO, relief="flat", width=30, font=("Helvetica", 12), justify="center")
             self.txt_pass.pack(pady=(0, 20))
             
-            st.Button(f_interactivo, text="Confirmar Ingreso", command=self.procesar_login, bg=NEON_MORADO, fg=TEXT_BLANCO, width=22, font=("Helvetica", 11, "bold"), relief="flat", cursor="hand2").pack(pady=(0, 10))
-            st.Button(f_interactivo, text="Registrar Personal", command=self.pantalla_registrar_usuario, bg=BG_GRIS, fg=TEXT_BLANCO, relief="flat", font=("Helvetica", 10, "underline"), cursor="hand2").pack(pady=(0, 10))
-            st.Button(f_interactivo, text="Volver", command=self.pantalla_bienvenida, bg="#2B2D31", fg=TEXT_BLANCO, relief="flat", font=("Helvetica", 9), width=10, cursor="hand2").pack()
+            tk.Button(f_interactivo, text="Confirmar Ingreso", command=self.procesar_login, bg=NEON_MORADO, fg=TEXT_BLANCO, width=22, font=("Helvetica", 11, "bold"), relief="flat", cursor="hand2").pack(pady=(0, 10))
+            tk.Button(f_interactivo, text="Registrar Personal", command=self.pantalla_registrar_usuario, bg=BG_GRIS, fg=TEXT_BLANCO, relief="flat", font=("Helvetica", 10, "underline"), cursor="hand2").pack(pady=(0, 10))
+            tk.Button(f_interactivo, text="Volver", command=self.pantalla_bienvenida, bg="#2B2D31", fg=TEXT_BLANCO, relief="flat", font=("Helvetica", 9), width=10, cursor="hand2").pack()
 
         # 3. Botón de Ingresar Único Solicitado
-        btn_ingresar = st.Button(f_interactivo, text="INGRESAR", command=desplegar_formulario_login, bg=NEON_MORADO, fg=TEXT_BLANCO, width=20, height=2, font=("Helvetica", 14, "bold"), relief="flat", cursor="hand2")
+        btn_ingresar = tk.Button(f_interactivo, text="INGRESAR", command=desplegar_formulario_login, bg=NEON_MORADO, fg=TEXT_BLANCO, width=20, height=2, font=("Helvetica", 14, "bold"), relief="flat", cursor="hand2")
         btn_ingresar.pack(pady=10)
         
-        st.Button(f_main, text="Salir de la Aplicación", command=self.root.quit, bg="#4E1414", fg=TEXT_BLANCO, relief="flat", font=("Helvetica", 9), width=18, cursor="hand2").pack(pady=(15, 0))
+        tk.Button(f_main, text="Salir de la Aplicación", command=self.root.quit, bg="#4E1414", fg=TEXT_BLANCO, relief="flat", font=("Helvetica", 9), width=18, cursor="hand2").pack(pady=(15, 0))
 
     def procesar_login(self):
         u, p = self.txt_user.get().strip(), self.txt_pass.get().strip()
@@ -223,28 +214,28 @@ class AsistenciaApp:
         img_logo = self.obtener_logo_procesado(320, 320)
         if img_logo:
             self.logo_registro = ImageTk.PhotoImage(img_logo)
-            lbl_logo = st(f_izq, image=self.logo_registro, bg=BG_GRIS)
+            lbl_logo = tk.Label(f_izq, image=self.logo_registro, bg=BG_GRIS)
             lbl_logo.pack(expand=True)
         else:
-            st.Label(f_izq, text="[ Logo no encontrado ]", fg="gray", bg=BG_GRIS, font=("Helvetica", 11, "italic")).pack(expand=True)
+            tk.Label(f_izq, text="[ Logo no encontrado ]", fg="gray", bg=BG_GRIS, font=("Helvetica", 11, "italic")).pack(expand=True)
             
-        sep = st.Frame(f_main, bg=NEON_MORADO, width=2)
+        sep = tk.Frame(f_main, bg=NEON_MORADO, width=2)
         sep.pack(side="left", fill="y", padx=20)
 
-        f_der = st.Frame(f_main, bg=BG_GRIS, padx=40)
+        f_der = tk.Frame(f_main, bg=BG_GRIS, padx=40)
         f_der.pack(side="left", fill="y", expand=True)
         
-        st.Label(f_der, text="Registro de Personal Escolar", font=("Helvetica", 20, "bold"), fg=NEON_MORADO, bg=BG_GRIS).pack(pady=(10, 25))
+        tk.Label(f_der, text="Registro de Personal Escolar", font=("Helvetica", 20, "bold"), fg=NEON_MORADO, bg=BG_GRIS).pack(pady=(10, 25))
         
-        st.Label(f_der, text="Usuario asignado:", fg=TEXT_BLANCO, bg=BG_GRIS, font=("Helvetica", 12)).pack(anchor="w", pady=(0, 5))
-        u_e = st.Entry(f_der, bg=INPUT_BLANCO, fg=TEXT_NEGRO, insertbackground=TEXT_NEGRO, font=("Helvetica", 12), width=32, relief="flat")
+        tk.Label(f_der, text="Usuario asignado:", fg=TEXT_BLANCO, bg=BG_GRIS, font=("Helvetica", 12)).pack(anchor="w", pady=(0, 5))
+        u_e = tk.Entry(f_der, bg=INPUT_BLANCO, fg=TEXT_NEGRO, insertbackground=TEXT_NEGRO, font=("Helvetica", 12), width=32, relief="flat")
         u_e.pack(pady=(0, 15))
         
-        st.Label(f_der, text="Contraseña:", fg=TEXT_BLANCO, bg=BG_GRIS, font=("Helvetica", 12)).pack(anchor="w", pady=(0, 5))
-        p_e = st.Entry(f_der, show="*", bg=INPUT_BLANCO, fg=TEXT_NEGRO, insertbackground=TEXT_NEGRO, font=("Helvetica", 12), width=32, relief="flat")
+        tk.Label(f_der, text="Contraseña:", fg=TEXT_BLANCO, bg=BG_GRIS, font=("Helvetica", 12)).pack(anchor="w", pady=(0, 5))
+        p_e = tk.Entry(f_der, show="*", bg=INPUT_BLANCO, fg=TEXT_NEGRO, insertbackground=TEXT_NEGRO, font=("Helvetica", 12), width=32, relief="flat")
         p_e.pack(pady=(0, 15))
         
-        st.Label(f_der, text="Rol del Usuario:", fg=TEXT_BLANCO, bg=BG_GRIS, font=("Helvetica", 12)).pack(anchor="w", pady=(0, 5))
+        tk.Label(f_der, text="Rol del Usuario:", fg=TEXT_BLANCO, bg=BG_GRIS, font=("Helvetica", 12)).pack(anchor="w", pady=(0, 5))
         cb_rol = ttk.Combobox(f_der, values=["Docente", "Administrador"], state="readonly", font=("Helvetica", 11), width=30)
         cb_rol.pack(pady=(0, 25))
         cb_rol.current(0)
@@ -265,55 +256,55 @@ class AsistenciaApp:
             finally:
                 conn.close()
             
-        st.Button(f_der, text="Registrar y Volver", command=save, bg=NEON_MORADO, fg=TEXT_BLANCO, font=("Helvetica", 12, "bold"), relief="flat", width=24, cursor="hand2").pack(pady=(0, 15))
-        st.Button(f_der, text="Cancelar", command=self.pantalla_bienvenida, bg="#4E1414", fg=TEXT_BLANCO, font=("Helvetica", 10), relief="flat", width=16, cursor="hand2").pack()
+        tk.Button(f_der, text="Registrar y Volver", command=save, bg=NEON_MORADO, fg=TEXT_BLANCO, font=("Helvetica", 12, "bold"), relief="flat", width=24, cursor="hand2").pack(pady=(0, 15))
+        tk.Button(f_der, text="Cancelar", command=self.pantalla_bienvenida, bg="#4E1414", fg=TEXT_BLANCO, font=("Helvetica", 10), relief="flat", width=16, cursor="hand2").pack()
 
     def pantalla_menu_principal(self):
         self.limpiar_pantalla()
         
-        bar = st.Frame(self.root, bg=NEON_MORADO, height=55)
+        bar = tk.Frame(self.root, bg=NEON_MORADO, height=55)
         bar.pack(fill="x")
         
         informacion_tag = f"PANEL DE CONTROL  |  Usuario: {self.usuario_actual} ({self.rol_actual})"
-        st.Label(bar, text=informacion_tag, fg=TEXT_BLANCO, bg=NEON_MORADO, font=("Helvetica", 12, "bold")).pack(side="left", padx=25)
-        st.Button(bar, text="Cerrar Sesión", command=self.pantalla_bienvenida, bg=BG_GRIS, fg=TEXT_BLANCO, relief="flat", font=("Helvetica", 10, "bold"), cursor="hand2").pack(side="right", padx=15)
+        tk.Label(bar, text=informacion_tag, fg=TEXT_BLANCO, bg=NEON_MORADO, font=("Helvetica", 12, "bold")).pack(side="left", padx=25)
+        tk.Button(bar, text="Cerrar Sesión", command=self.pantalla_bienvenida, bg=BG_GRIS, fg=TEXT_BLANCO, relief="flat", font=("Helvetica", 10, "bold"), cursor="hand2").pack(side="right", padx=15)
         
-        m_container = st.Frame(self.root, bg=BG_GRIS)
+        m_container = tk.Frame(self.root, bg=BG_GRIS)
         m_container.pack(expand=True, fill="none", padx=20, pady=20)
         
-        f_logo_panel = st.Frame(m_container, bg=BG_GRIS, padx=10)
+        f_logo_panel = tk.Frame(m_container, bg=BG_GRIS, padx=10)
         f_logo_panel.pack(side="left", fill="y")
         
         img_logo = self.obtener_logo_procesado(260, 260)
         if img_logo:
             self.logo_panel = ImageTk.PhotoImage(img_logo)
-            lbl_logo = st.Label(f_logo_panel, image=self.logo_panel, bg=BG_GRIS)
+            lbl_logo = tk.Label(f_logo_panel, image=self.logo_panel, bg=BG_GRIS)
             lbl_logo.pack(expand=True, anchor="e")
         else:
-            st.Label(f_logo_panel, text="[ Logo ]", fg="gray", bg=BG_GRIS, font=("Helvetica", 11, "italic")).pack(expand=True)
+            tk.Label(f_logo_panel, text="[ Logo ]", fg="gray", bg=BG_GRIS, font=("Helvetica", 11, "italic")).pack(expand=True)
 
-        m = st.Frame(m_container, bg=BG_GRIS, padx=10)
+        m = tk.Frame(m_container, bg=BG_GRIS, padx=10)
         m.pack(side="left", fill="y")
         
-        st.Button(m, text="Registrar Nuevo Estudiante", command=self.pantalla_registrar_estudiante, font=("Helvetica", 13, "bold"), bg="#2B2D31", fg=TEXT_BLANCO, width=35, height=2, relief="flat", cursor="hand2").pack(pady=10)
-        st.Button(m, text="Control Matrícula (Pasar Asistencia)", command=self.pantalla_tomar_asistencia, font=("Helvetica", 13, "bold"), bg="#2B2D31", fg=TEXT_BLANCO, width=35, height=2, relief="flat", cursor="hand2").pack(pady=10)
-        st.Button(m, text="Módulo Estadístico y Reportes", command=self.pantalla_reportes, font=("Helvetica", 13, "bold"), bg="#2B2D31", fg=TEXT_BLANCO, width=35, height=2, relief="flat", cursor="hand2").pack(pady=10)
+        tk.Button(m, text="Registrar Nuevo Estudiante", command=self.pantalla_registrar_estudiante, font=("Helvetica", 13, "bold"), bg="#2B2D31", fg=TEXT_BLANCO, width=35, height=2, relief="flat", cursor="hand2").pack(pady=10)
+        tk.Button(m, text="Control Matrícula (Pasar Asistencia)", command=self.pantalla_tomar_asistencia, font=("Helvetica", 13, "bold"), bg="#2B2D31", fg=TEXT_BLANCO, width=35, height=2, relief="flat", cursor="hand2").pack(pady=10)
+        tk.Button(m, text="Módulo Estadístico y Reportes", command=self.pantalla_reportes, font=("Helvetica", 13, "bold"), bg="#2B2D31", fg=TEXT_BLANCO, width=35, height=2, relief="flat", cursor="hand2").pack(pady=10)
 
     def pantalla_registrar_estudiante(self):
         self.limpiar_pantalla()
         
-        f_principal = st.Frame(self.root, bg=BG_GRIS)
+        f_principal = tk.Frame(self.root, bg=BG_GRIS)
         f_principal.pack(expand=True, fill="both", padx=40, pady=20)
         
-        st.Label(f_principal, text="SISTEMA DE CONTROL DE ASISTENCIA - REGISTRO DE MATRÍCULA", font=("Helvetica", 18, "bold"), fg=NEON_MORADO, bg=BG_GRIS).pack(pady=10)
+        tk.Label(f_principal, text="SISTEMA DE CONTROL DE ASISTENCIA - REGISTRO DE MATRÍCULA", font=("Helvetica", 18, "bold"), fg=NEON_MORADO, bg=BG_GRIS).pack(pady=10)
         
-        panel_columnas = st.Frame(f_principal, bg=BG_GRIS)
+        panel_columnas = tk.Frame(f_principal, bg=BG_GRIS)
         panel_columnas.pack(expand=True, fill="both", pady=10)
         
         estilo_lbl_frame = {"bg": BG_GRIS, "fg": TEXT_BLANCO, "font": ("Helvetica", 12, "bold"), "bd": 1, "relief": "groove"}
         estilo_entrada = {"bg": INPUT_BLANCO, "fg": TEXT_NEGRO, "insertbackground": TEXT_NEGRO, "font": ("Helvetica", 11), "relief": "sunken", "bd": 1}
         
-        col1 = st.LabelFrame(panel_columnas, text=" Datos Personales ", **estilo_lbl_frame)
+        col1 = tk.LabelFrame(panel_columnas, text=" Datos Personales ", **estilo_lbl_frame)
         col1.pack(side="left", fill="both", expand=True, padx=15, pady=5)
         col1.grid_columnconfigure(1, weight=1)
         
@@ -848,16 +839,9 @@ class AsistenciaApp:
         sb_tree.pack(side="right", fill="y")
 
         tk.Button(ventana_drill, text="Cerrar Detalle", command=ventana_drill.destroy, bg=NEON_MORADO, fg=TEXT_BLANCO, font=("Helvetica", 10, "bold"), relief="flat", width=15).pack(pady=10)
-    # --- CÓDIGO PARA TU PÁGINA WEB DE DESCARGA ---
-st.write("---")
-st.subheader("Descargar Sistema de Asistencia")
 
-st.write("Haz clic en el botón de abajo para obtener el archivo de la aplicación:")
 
-with open("prueba 1.py", "rb") as file:
-    st.download_button(
-        label="📥 Descargar Programa de Asistencia",
-        data=file,
-        file_name="Sistema_Asistencia.py",
-        mime="text/plain"
-    )
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = AsistenciaApp(root)
+    root.mainloop()
